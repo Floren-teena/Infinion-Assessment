@@ -1,0 +1,6 @@
+@Florentina_Infinion_Assessment.API_HostAddress = http://localhost:5280
+
+GET {{Florentina_Infinion_Assessment.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
