@@ -1,4 +1,5 @@
 ﻿using Florentina_Infinion_Assessment.Application.DTOs;
+using Florentina_Infinion_Assessment.Application.Helpers.Interfaces;
 using Florentina_Infinion_Assessment.Application.Services.Implementation;
 using Florentina_Infinion_Assessment.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,7 @@ namespace Florentina_Infinion_Assessment.API.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase //remember to use [Authorize]
+    public class UserController : ControllerBase 
     {
         private readonly ITokenService _tokenService;
         private readonly IUserService _userService;

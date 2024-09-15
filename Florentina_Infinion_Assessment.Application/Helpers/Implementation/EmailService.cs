@@ -1,5 +1,4 @@
 ﻿using Florentina_Infinion_Assessment.Application.DTOs;
-using Florentina_Infinion_Assessment.Application.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using System;
@@ -9,8 +8,9 @@ using System.Net.Mail;
 using MailKit.Net.Smtp;
 using System.Text;
 using System.Threading.Tasks;
+using Florentina_Infinion_Assessment.Application.Helpers.Interfaces;
 
-namespace Florentina_Infinion_Assessment.Application.Services.Implementation
+namespace Florentina_Infinion_Assessment.Application.Helpers.Implementation
 {
     public class EmailService : IEmailService
     {

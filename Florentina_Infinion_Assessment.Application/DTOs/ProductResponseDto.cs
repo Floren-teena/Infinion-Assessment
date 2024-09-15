@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Florentina_Infinion_Assessment.Core.Models
+namespace Florentina_Infinion_Assessment.Application.DTOs
 {
-    public class Product
+    public class ProductResponseDto
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public decimal Price { get; set; }  = decimal.Zero;
         public string? Description { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public decimal Price { get; set; }
     }
 }

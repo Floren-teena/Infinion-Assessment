@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Florentina_Infinion_Assessment.Application.Services.Interfaces
+namespace Florentina_Infinion_Assessment.Application.Helpers.Interfaces
 {
     public interface ITokenService
     {

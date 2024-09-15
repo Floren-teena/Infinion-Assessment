@@ -13,5 +13,6 @@ namespace Florentina_Infinion_Assessment.Application.DTOs
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? Token { get; set; }
+        public string? Password { get; set; }
     }
 }

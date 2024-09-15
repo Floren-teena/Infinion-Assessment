@@ -1,4 +1,4 @@
-﻿using Florentina_Infinion_Assessment.Application.Services.Interfaces;
+﻿using Florentina_Infinion_Assessment.Application.Helpers.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Florentina_Infinion_Assessment.Application.Services.Implementation
+namespace Florentina_Infinion_Assessment.Application.Helpers.Implementation
 {
     public class TokenService : ITokenService
     {
@@ -19,9 +19,9 @@ namespace Florentina_Infinion_Assessment.Application.Services.Implementation
 
         public TokenService(IConfiguration configuration)
         {
-            _key = configuration["Jwt:Key"];
-            _issuer = configuration["Jwt:Issuer"];
-            _audience = configuration["Jwt:Audience"];
+            _key = configuration["Jwt:Key"]!;
+            _issuer = configuration["Jwt:Issuer"]!;
+            _audience = configuration["Jwt:Audience"]!;
         }
         public string GenerateToken(IEnumerable<Claim> claims)
         {

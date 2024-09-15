@@ -1,7 +1,12 @@
+using Florentina_Infinion_Assessment.Application.Helpers.Implementation;
+using Florentina_Infinion_Assessment.Application.Helpers.Interfaces;
 using Florentina_Infinion_Assessment.Application.Services.Implementation;
 using Florentina_Infinion_Assessment.Application.Services.Interfaces;
+using Florentina_Infinion_Assessment.Application.Validators;
 using Florentina_Infinion_Assessment.Core.Models;
 using Florentina_Infinion_Assessment.Infrastructure;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -81,6 +86,17 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Register FluentValidation
+builder.Services.AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
+
+// Add the validator from your application layer
+builder.Services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
+
+//builder.Services.AddFluentValidationAutoValidation.AddFluentValidationClientsideAdapters()
+/*builder.Services.AddControllers()
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>());
+*/
 builder.Services.AddAuthorization();
 
 var app = builder.Build();

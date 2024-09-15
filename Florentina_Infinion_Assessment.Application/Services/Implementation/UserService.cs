@@ -1,10 +1,12 @@
 ﻿using Florentina_Infinion_Assessment.Application.DTOs;
+using Florentina_Infinion_Assessment.Application.Helpers.Interfaces;
 using Florentina_Infinion_Assessment.Application.Services.Interfaces;
 using Florentina_Infinion_Assessment.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,14 +31,14 @@ namespace Florentina_Infinion_Assessment.Application.Services.Implementation
                 var user = await _userManager.FindByEmailAsync(request.Email!);
                 if (user == null)
                 {
-                    return ApiResponseDto<UserResponseDto>.FailureResponse("Invalid email or password", "Login failed.");
+                    return ApiResponseDto<UserResponseDto>.FailureResponse("Email address does not exist yet, try registering with it", "Login failed.");
                 }
 
                 // Verify the password
                 var isPasswordValid = await _userManager.CheckPasswordAsync(user, request.Password!);
                 if (!isPasswordValid)
                 {
-                    return ApiResponseDto<UserResponseDto>.FailureResponse("Invalid email or password", "Login failed.");
+                    return ApiResponseDto<UserResponseDto>.FailureResponse("Incorrect Password", "Login failed.");
                 }
 
                 // If password is correct, generate a token 
@@ -70,6 +72,14 @@ namespace Florentina_Infinion_Assessment.Application.Services.Implementation
         {
             try
             {
+                var email = new MailAddress(request.Email!);
+            }
+            catch (FormatException)
+            {
+                return ApiResponseDto<UserResponseDto>.FailureResponse("Invalid email format", "User registration failed.");
+            }
+            try
+            {
                 // Check if the email is already registered
                 var existingUser = await _userManager.FindByEmailAsync(request.Email!);
                 if (existingUser != null)
@@ -97,7 +107,8 @@ namespace Florentina_Infinion_Assessment.Application.Services.Implementation
                         Id = user.Id,
                         FirstName = user.FirstName,
                         LastName = user.LastName,
-                        Email = user.Email
+                        Email = user.Email,
+                        Password = user.PasswordHash
                     };
 
                     // Return a success response with the user details
