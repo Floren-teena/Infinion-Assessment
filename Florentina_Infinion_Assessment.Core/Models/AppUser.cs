@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Florentina_Infinion_Assessment.Core.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class AppUser : IdentityUser
     {
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
