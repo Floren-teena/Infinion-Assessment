@@ -2,11 +2,6 @@
 using Florentina_Infinion_Assessment.Application.Services.Interfaces;
 using Florentina_Infinion_Assessment.Core.Models;
 using Florentina_Infinion_Assessment.Infrastructure.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Florentina_Infinion_Assessment.Application.Services.Implementation
 {
@@ -22,7 +17,6 @@ namespace Florentina_Infinion_Assessment.Application.Services.Implementation
         public async Task<IEnumerable<ProductResponseDto>> GetAllProducts(string filter, int page, int pageSize)
         {
             var products = await _productRepository.GetAllProducts(filter, page, pageSize);
-
             return products.Select(p => new ProductResponseDto
             {
                 Id = p.Id,
@@ -35,9 +29,7 @@ namespace Florentina_Infinion_Assessment.Application.Services.Implementation
         public async Task<ProductResponseDto?> GetProductById(int id)
         {
             var product = await _productRepository.GetProductById(id);
-
             if (product == null) return null;
-
             return new ProductResponseDto
             {
                 Id = product.Id,
@@ -58,21 +50,21 @@ namespace Florentina_Infinion_Assessment.Application.Services.Implementation
             await _productRepository.AddProduct(product);
         }
 
-        public async Task UpdateProduct(int id, ProductRequestDto productDto)
+        public async Task<bool> UpdateProduct(int id, ProductRequestDto productDto)
         {
             var product = await _productRepository.GetProductById(id);
-            if (product == null) return;
-
+            if (product == null) { return false; }
             product.Name = productDto.Name;
             product.Description = productDto.Description;
             product.Price = productDto.Price;
 
-            await _productRepository.UpdateProduct(product);
+            return await _productRepository.UpdateProduct(product);
         }
 
-        public async Task DeleteProduct(int id)
+        public async Task<bool> DeleteProduct(int id)
         {
-            await _productRepository.DeleteProduct(id);
+            return await _productRepository.DeleteProduct(id);
         }
+
     }
 }

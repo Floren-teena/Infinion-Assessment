@@ -12,6 +12,6 @@ namespace Florentina_Infinion_Assessment.Core.Models
         public string Name { get; set; } = null!;
         public decimal Price { get; set; }  = decimal.Zero;
         public string? Description { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

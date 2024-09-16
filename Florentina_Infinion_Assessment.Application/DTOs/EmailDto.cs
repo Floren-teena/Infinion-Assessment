@@ -12,6 +12,6 @@ namespace Florentina_Infinion_Assessment.Application.DTOs
         public string? From { get; set; }
         public string? Subject { get; set; }
         public string? Body { get; set; }
-        //public string? UserName { get; set; }
+        public string? FirstName { get; set; }
     }
 }

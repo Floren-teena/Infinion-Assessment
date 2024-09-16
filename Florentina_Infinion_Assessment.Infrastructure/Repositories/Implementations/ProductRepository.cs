@@ -21,11 +21,8 @@ namespace Florentina_Infinion_Assessment.Infrastructure.Repositories.Implementat
         public async Task<IEnumerable<Product>> GetAllProducts(string filter, int page, int pageSize)
         {
             var query = _applicationDbContext.Products.AsQueryable();
-
             if (!string.IsNullOrEmpty(filter))
-            {
-                query = query.Where(p => p.Name.Contains(filter));
-            }
+            { query = query.Where(p => p.Name.Contains(filter)); }
             return await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
 
@@ -39,21 +36,24 @@ namespace Florentina_Infinion_Assessment.Infrastructure.Repositories.Implementat
             _applicationDbContext.Products.Add(product);
             await _applicationDbContext.SaveChangesAsync();
         }
-        public async Task UpdateProduct(Product product)
+
+        public async Task<bool> UpdateProduct(Product product)
         {
+            var existingProduct = await _applicationDbContext.Products.FindAsync(product.Id);
+            if (existingProduct == null) { return false; }
             _applicationDbContext.Products.Update(product);
             await _applicationDbContext.SaveChangesAsync();
+            return true;
         }
 
-        public async Task DeleteProduct(int id)
+        public async Task<bool> DeleteProduct(int id)
         {
             var product = await _applicationDbContext.Products.FindAsync(id);
-
-            if (product != null)
-            {
-                _applicationDbContext.Products.Remove(product);
-                await _applicationDbContext.SaveChangesAsync();
-            }
+            if (product == null) { return false; }
+            _applicationDbContext.Products.Remove(product);
+            await _applicationDbContext.SaveChangesAsync();
+            return true; 
         }
+
     }
 }

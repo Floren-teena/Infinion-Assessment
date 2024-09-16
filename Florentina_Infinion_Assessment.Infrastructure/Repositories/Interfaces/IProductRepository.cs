@@ -12,7 +12,7 @@ namespace Florentina_Infinion_Assessment.Infrastructure.Repositories.Interfaces
         Task<IEnumerable<Product>> GetAllProducts(string filter, int page, int pageSize);
         Task<Product?> GetProductById(int id);
         Task AddProduct(Product product);
-        Task UpdateProduct(Product product);
-        Task DeleteProduct(int id);
+        Task<bool> UpdateProduct(Product product);
+        Task<bool> DeleteProduct(int id);
     }
 }

@@ -38,3 +38,7 @@ artifacts/
 
 # npm packages
 node_modules/
+
+#appsettings files
+appsettings.json
+appsettings.Development.json

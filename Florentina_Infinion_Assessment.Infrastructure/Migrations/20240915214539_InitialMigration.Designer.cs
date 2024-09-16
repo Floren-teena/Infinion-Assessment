@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Florentina_Infinion_Assessment.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240915014610_InitialMigration")]
+    [Migration("20240915214539_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -93,7 +93,7 @@ namespace Florentina_Infinion_Assessment.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")

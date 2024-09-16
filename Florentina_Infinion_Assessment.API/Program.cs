@@ -5,6 +5,8 @@ using Florentina_Infinion_Assessment.Application.Services.Interfaces;
 using Florentina_Infinion_Assessment.Application.Validators;
 using Florentina_Infinion_Assessment.Core.Models;
 using Florentina_Infinion_Assessment.Infrastructure;
+using Florentina_Infinion_Assessment.Infrastructure.Repositories.Implementations;
+using Florentina_Infinion_Assessment.Infrastructure.Repositories.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -24,10 +26,12 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
 
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddControllers();
 
@@ -89,14 +93,8 @@ builder.Services.AddAuthentication(options =>
 // Register FluentValidation
 builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
-
-// Add the validator from your application layer
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
 
-//builder.Services.AddFluentValidationAutoValidation.AddFluentValidationClientsideAdapters()
-/*builder.Services.AddControllers()
-    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>());
-*/
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
